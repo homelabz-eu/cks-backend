@@ -1,4 +1,4 @@
-module github.com/fullstack-pw/cks/backend
+module github.com/homelabz-eu/cks-backend
 
 go 1.24.0
 
