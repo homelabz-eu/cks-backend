@@ -18,15 +18,15 @@ import (
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 
-	"github.com/homelabz-eu/cks/backend/internal/clusterpool"
-	"github.com/homelabz-eu/cks/backend/internal/config"
-	"github.com/homelabz-eu/cks/backend/internal/controllers"
-	"github.com/homelabz-eu/cks/backend/internal/kubevirt"
-	"github.com/homelabz-eu/cks/backend/internal/middleware"
-	"github.com/homelabz-eu/cks/backend/internal/scenarios"
-	"github.com/homelabz-eu/cks/backend/internal/services"
-	"github.com/homelabz-eu/cks/backend/internal/sessions"
-	"github.com/homelabz-eu/cks/backend/internal/validation"
+	"github.com/homelabz-eu/cks-backend/internal/clusterpool"
+	"github.com/homelabz-eu/cks-backend/internal/config"
+	"github.com/homelabz-eu/cks-backend/internal/controllers"
+	"github.com/homelabz-eu/cks-backend/internal/kubevirt"
+	"github.com/homelabz-eu/cks-backend/internal/middleware"
+	"github.com/homelabz-eu/cks-backend/internal/scenarios"
+	"github.com/homelabz-eu/cks-backend/internal/services"
+	"github.com/homelabz-eu/cks-backend/internal/sessions"
+	"github.com/homelabz-eu/cks-backend/internal/validation"
 )
 
 // createKubernetesConfig  creates Kubernetes config with explicit context selection

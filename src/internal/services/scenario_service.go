@@ -3,8 +3,8 @@
 package services
 
 import (
-	"github.com/homelabz-eu/cks/backend/internal/models"
-	"github.com/homelabz-eu/cks/backend/internal/scenarios"
+	"github.com/homelabz-eu/cks-backend/internal/models"
+	"github.com/homelabz-eu/cks-backend/internal/scenarios"
 )
 
 // ScenarioServiceImpl implements the ScenarioService interface

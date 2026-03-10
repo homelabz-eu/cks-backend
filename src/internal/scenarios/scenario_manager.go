@@ -10,7 +10,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/homelabz-eu/cks/backend/internal/models"
+	"github.com/homelabz-eu/cks-backend/internal/models"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
 )

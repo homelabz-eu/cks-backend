@@ -9,7 +9,7 @@ import (
 	"github.com/redis/go-redis/v9"
 	"github.com/sirupsen/logrus"
 
-	"github.com/homelabz-eu/cks/backend/internal/models"
+	"github.com/homelabz-eu/cks-backend/internal/models"
 )
 
 const (

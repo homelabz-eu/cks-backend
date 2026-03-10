@@ -7,8 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 
-	"github.com/homelabz-eu/cks/backend/internal/models"
-	"github.com/homelabz-eu/cks/backend/internal/services"
+	"github.com/homelabz-eu/cks-backend/internal/models"
+	"github.com/homelabz-eu/cks-backend/internal/services"
 )
 
 type TerminalController struct {

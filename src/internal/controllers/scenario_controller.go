@@ -5,8 +5,8 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/homelabz-eu/cks/backend/internal/models"
-	"github.com/homelabz-eu/cks/backend/internal/services"
+	"github.com/homelabz-eu/cks-backend/internal/models"
+	"github.com/homelabz-eu/cks-backend/internal/services"
 	"github.com/gin-gonic/gin"
 )
 

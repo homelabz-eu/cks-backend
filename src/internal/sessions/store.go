@@ -3,7 +3,7 @@ package sessions
 import (
 	"context"
 
-	"github.com/homelabz-eu/cks/backend/internal/models"
+	"github.com/homelabz-eu/cks-backend/internal/models"
 )
 
 type SessionStore interface {

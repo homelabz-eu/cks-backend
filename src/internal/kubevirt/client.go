@@ -24,7 +24,7 @@ import (
 	"k8s.io/client-go/rest"
 	"kubevirt.io/client-go/kubecli"
 
-	"github.com/homelabz-eu/cks/backend/internal/config"
+	"github.com/homelabz-eu/cks-backend/internal/config"
 	"github.com/sirupsen/logrus"
 	snapshotv1beta1 "kubevirt.io/api/snapshot/v1beta1"
 )
