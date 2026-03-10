@@ -177,7 +177,7 @@ Applied to:
 
 ### Terminal Architecture
 
-Terminal access is delegated to [cks-terminal-mgmt](https://github.com/homelabz-eu/cks-terminal-mgmt), a dedicated microservice running on the sandboxy cluster. The backend resolves VM names to IPs via the KubeVirt API and returns a terminal-mgmt URL for iframe embedding:
+Terminal access is delegated to [cks-terminal-mgmt](https://github.com/homelabz-eu/cks-terminal-mgmt), a dedicated microservice running on the toolz cluster. The backend resolves VM names to IPs via the KubeVirt API and returns a terminal-mgmt URL for iframe embedding:
 
 ```
 POST /api/v1/sessions/:id/terminals  { target: "control-plane" }
@@ -495,7 +495,7 @@ Key environment variables:
 
 | Variable | Purpose | Default |
 |----------|---------|---------|
-| `KUBERNETES_CONTEXT` | Target cluster context | `sandboxy` |
+| `KUBERNETES_CONTEXT` | Target cluster context | `toolz` |
 | `KUBECONFIG` | Path to kubeconfig | `~/.kube/config` |
 | `KUBERNETES_VERSION` | K8s version for VMs | `1.33.0` |
 | `VM_CPU_CORES` | CPU per VM | `2` |

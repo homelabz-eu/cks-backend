@@ -64,7 +64,7 @@ func LoadConfig() (*Config, error) {
 		LogFormat:       getEnv("LOG_FORMAT", "text"),
 
 		// Kubernetes defaults - ADD THESE LINES
-		KubernetesContext: getEnv("KUBERNETES_CONTEXT", "sandboxy"), // Default to sandboxy
+		KubernetesContext: getEnv("KUBERNETES_CONTEXT", "toolz"),
 		KubeconfigPath:    getEnv("KUBECONFIG", ""),                 // Use standard KUBECONFIG env var
 
 		// Session defaults
