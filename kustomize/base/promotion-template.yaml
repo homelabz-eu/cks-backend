@@ -29,18 +29,18 @@ spec:
 
                         # Configure git
                         git config --global user.name "Argo Rollouts Auto-Promotion"
-                        git config --global user.email "noreply@fullstack.pw"
+                        git config --global user.email "noreply@homelabz.eu"
 
                         # Clone cks-backend repository
-                        git clone https://github.com/fullstack-pw/cks-backend.git /workspace
+                        git clone https://github.com/homelabz-eu/cks-backend.git /workspace
                         cd /workspace
 
                         # Get the current dev version (the version that just passed tests)
                         DEV_KUSTOMIZATION="kustomize/overlays/dev/kustomization.yaml"
                         PROD_KUSTOMIZATION="kustomize/overlays/prod/kustomization.yaml"
 
-                        DEV_TAG=$(grep -A1 "name: registry.fullstack.pw/library/{{args.app-name}}" "$DEV_KUSTOMIZATION" | grep "newTag:" | awk '{print $2}')
-                        PROD_TAG=$(grep -A1 "name: registry.fullstack.pw/library/{{args.app-name}}" "$PROD_KUSTOMIZATION" | grep "newTag:" | awk '{print $2}')
+                        DEV_TAG=$(grep -A1 "name: registry.toolz.homelabz.eu/library/{{args.app-name}}" "$DEV_KUSTOMIZATION" | grep "newTag:" | awk '{print $2}')
+                        PROD_TAG=$(grep -A1 "name: registry.toolz.homelabz.eu/library/{{args.app-name}}" "$PROD_KUSTOMIZATION" | grep "newTag:" | awk '{print $2}')
 
                         echo "Dev is at version: $DEV_TAG"
                         echo "Prod is at version: $PROD_TAG"
@@ -61,7 +61,7 @@ spec:
                         git commit -m "chore({{args.app-name}}): auto-promote $DEV_TAG to prod [skip ci]"
 
                         # Push using GitHub token
-                        git push https://${GITHUB_TOKEN}@github.com/fullstack-pw/cks-backend.git main
+                        git push https://${GITHUB_TOKEN}@github.com/homelabz-eu/cks-backend.git main
 
                         echo "Successfully promoted {{args.app-name}} to production"
                         exit 0

@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fullstack-pw/cks/backend/internal/kubevirt"
-	"github.com/fullstack-pw/cks/backend/internal/models"
+	"github.com/homelabz-eu/cks/backend/internal/kubevirt"
+	"github.com/homelabz-eu/cks/backend/internal/models"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
 	"k8s.io/client-go/kubernetes"

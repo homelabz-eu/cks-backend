@@ -40,7 +40,7 @@ spec:
             runAsUser: 0
       containers:
         - name: cks-backend
-          image: registry.fullstack.pw/library/cks-backend:latest
+          image: registry.toolz.homelabz.eu/library/cks-backend:latest
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -109,7 +109,7 @@ spec:
           - name: app-name
             value: cks-backend
           - name: app-url
-            value: "https://dev.api.cks.fullstack.pw"
+            value: "https://dev.api.cks.homelabz.eu"
           - name: environment
             value: "dev"
       postPromotionAnalysis:

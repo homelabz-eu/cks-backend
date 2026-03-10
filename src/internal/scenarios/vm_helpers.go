@@ -5,7 +5,7 @@ package scenarios
 import (
 	"fmt"
 
-	"github.com/fullstack-pw/cks/backend/internal/models"
+	"github.com/homelabz-eu/cks/backend/internal/models"
 )
 
 // VMTarget represents the target VM for operations

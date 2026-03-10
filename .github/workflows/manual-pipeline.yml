@@ -34,7 +34,7 @@ jobs:
     needs: [determine-app]
     if: needs.determine-app.outputs.apps != '[]'
     name: Build and Push
-    uses: fullstack-pw/pipelines/.github/workflows/build-and-push.yml@main
+    uses: homelabz-eu/pipelines/.github/workflows/build-and-push.yml@main
     with:
       app-context: "."
       app-name: "cks-backend"
@@ -44,7 +44,7 @@ jobs:
     needs: [determine-app, docker-build-and-push]
     if: needs.determine-app.outputs.apps != '[]' && contains(github.event.inputs.deploy_target, 'dev')
     name: DEV deploy ${{ matrix.app.app_name }}
-    uses: fullstack-pw/pipelines/.github/workflows/deploy-kustomize.yml@main
+    uses: homelabz-eu/pipelines/.github/workflows/deploy-kustomize.yml@main
     with:
       kustomize-dir: "./kustomize/overlays/dev"
       context: "dev"
@@ -54,14 +54,14 @@ jobs:
   #   needs: dev-deploy
   #   if: github.event.inputs.run_tests == 'true' && contains(github.event.inputs.deploy_target, 'dev')
   #   name: DEV cypress
-  #   uses: fullstack-pw/pipelines/.github/workflows/cypress.yml@main
+  #   uses: homelabz-eu/pipelines/.github/workflows/cypress.yml@main
   #   with:
   #     start: npm run cypress:dev
   #     env-vars: |
   #       {
-  #         "ENQUEUER_URL": "https://dev.enqueuer.fullstack.pw",
-  #         "WRITER_URL": "https://dev.writer.fullstack.pw",
-  #         "MEMORIZER_URL": "https://dev.memorizer.fullstack.pw",
+  #         "ENQUEUER_URL": "https://dev.enqueuer.homelabz.eu",
+  #         "WRITER_URL": "https://dev.writer.homelabz.eu",
+  #         "MEMORIZER_URL": "https://dev.memorizer.homelabz.eu",
   #         "ENVIRONMENT": "dev",
   #         "TEST_RETRIES": "2"
   #       }
@@ -70,7 +70,7 @@ jobs:
     needs: [determine-app, docker-build-and-push]
     if: needs.determine-app.outputs.apps != '[]' && contains(github.event.inputs.deploy_target, 'stg')
     name: STG deploy ${{ matrix.app.app_name }}
-    uses: fullstack-pw/pipelines/.github/workflows/deploy-kustomize.yml@main
+    uses: homelabz-eu/pipelines/.github/workflows/deploy-kustomize.yml@main
     with:
       kustomize-dir: "./kustomize/overlays/stg"
       context: "stg"
@@ -80,14 +80,14 @@ jobs:
   #   needs: stg-deploy
   #   if: github.event.inputs.run_tests == 'true' && contains(github.event.inputs.deploy_target, 'stg')
   #   name: STG cypress
-  #   uses: fullstack-pw/pipelines/.github/workflows/cypress.yml@main
+  #   uses: homelabz-eu/pipelines/.github/workflows/cypress.yml@main
   #   with:
   #     start: npm run cypress:stg
   #     env-vars: |
   #       {
-  #         "ENQUEUER_URL": "https://stg.enqueuer.fullstack.pw",
-  #         "WRITER_URL": "https://stg.writer.fullstack.pw",
-  #         "MEMORIZER_URL": "https://stg.memorizer.fullstack.pw",
+  #         "ENQUEUER_URL": "https://stg.enqueuer.homelabz.eu",
+  #         "WRITER_URL": "https://stg.writer.homelabz.eu",
+  #         "MEMORIZER_URL": "https://stg.memorizer.homelabz.eu",
   #         "ENVIRONMENT": "stg",
   #         "TEST_RETRIES": "2"
   #       }
@@ -96,7 +96,7 @@ jobs:
     needs: [determine-app, docker-build-and-push]
     if: needs.determine-app.outputs.apps != '[]' && contains(github.event.inputs.deploy_target, 'prod')
     name: PROD deploy ${{ matrix.app.app_name }}
-    uses: fullstack-pw/pipelines/.github/workflows/deploy-kustomize.yml@main
+    uses: homelabz-eu/pipelines/.github/workflows/deploy-kustomize.yml@main
     with:
       kustomize-dir: "./kustomize/overlays/prod"
       context: "prod"

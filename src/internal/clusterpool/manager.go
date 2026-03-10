@@ -7,9 +7,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/fullstack-pw/cks/backend/internal/config"
-	"github.com/fullstack-pw/cks/backend/internal/kubevirt"
-	"github.com/fullstack-pw/cks/backend/internal/models"
+	"github.com/homelabz-eu/cks/backend/internal/config"
+	"github.com/homelabz-eu/cks/backend/internal/kubevirt"
+	"github.com/homelabz-eu/cks/backend/internal/models"
 	"github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"

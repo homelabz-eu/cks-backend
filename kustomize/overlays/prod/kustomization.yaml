@@ -5,14 +5,14 @@ resources:
   - ../../base
 
 images:
-  - name: registry.fullstack.pw/library/cks-backend
+  - name: registry.toolz.homelabz.eu/library/cks-backend
     newTag: 2a259af37ebe4b46c07fc0480d9314ee34731d5c
 
 patches:
   - patch: |-
       - op: replace
         path: /spec/hosts/0
-        value: "api.cks.fullstack.pw"
+        value: "api.cks.homelabz.eu"
     target:
       kind: VirtualService
       name: cks-backend

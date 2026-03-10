@@ -6,9 +6,9 @@ import (
 	"context"
 	"time"
 
-	"github.com/fullstack-pw/cks/backend/internal/models"
-	"github.com/fullstack-pw/cks/backend/internal/sessions"
-	"github.com/fullstack-pw/cks/backend/internal/validation"
+	"github.com/homelabz-eu/cks/backend/internal/models"
+	"github.com/homelabz-eu/cks/backend/internal/sessions"
+	"github.com/homelabz-eu/cks/backend/internal/validation"
 )
 
 // SessionServiceImpl implements the SessionService interface

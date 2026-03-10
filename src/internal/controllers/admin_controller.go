@@ -9,9 +9,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 
-	"github.com/fullstack-pw/cks/backend/internal/kubevirt"
-	"github.com/fullstack-pw/cks/backend/internal/models"
-	"github.com/fullstack-pw/cks/backend/internal/sessions"
+	"github.com/homelabz-eu/cks/backend/internal/kubevirt"
+	"github.com/homelabz-eu/cks/backend/internal/models"
+	"github.com/homelabz-eu/cks/backend/internal/sessions"
 )
 
 // AdminController handles administrative operations

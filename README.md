@@ -109,7 +109,7 @@ CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build \
 **Automated Pipeline** (`.github/workflows/pipeline.yml`)
 
 Job Flow:
-1. **docker-build-and-push**: Multi-stage build, push to `registry.fullstack.pw/library/cks-backend` with commit SHA + latest tags
+1. **docker-build-and-push**: Multi-stage build, push to `registry.toolz.homelabz.eu/library/cks-backend` with commit SHA + latest tags
 2. **dev-deploy**: Kustomize overlay deployment to development cluster
 3. **versioning**: Semantic version calculation from commit messages, GitHub release creation
 
@@ -177,11 +177,11 @@ Applied to:
 
 ### Terminal Architecture
 
-Terminal access is delegated to [cks-terminal-mgmt](https://github.com/fullstack-pw/cks-terminal-mgmt), a dedicated microservice running on the sandboxy cluster. The backend resolves VM names to IPs via the KubeVirt API and returns a terminal-mgmt URL for iframe embedding:
+Terminal access is delegated to [cks-terminal-mgmt](https://github.com/homelabz-eu/cks-terminal-mgmt), a dedicated microservice running on the sandboxy cluster. The backend resolves VM names to IPs via the KubeVirt API and returns a terminal-mgmt URL for iframe embedding:
 
 ```
 POST /api/v1/sessions/:id/terminals  { target: "control-plane" }
-→ { terminalUrl: "https://terminal.cks.fullstack.pw/terminal?vmIP=10.42.0.56" }
+→ { terminalUrl: "https://terminal.cks.homelabz.eu/terminal?vmIP=10.42.0.56" }
 ```
 
 The `TERMINAL_MGMT_URL` is configured via environment variable/ConfigMap.
@@ -505,12 +505,12 @@ Key environment variables:
 | `GOLDEN_IMAGE_NAME` | Base image PVC name | `new-golden-image-1-33-0` |
 | `GOLDEN_IMAGE_NAMESPACE` | Image PVC namespace | `vm-templates` |
 | `POD_CIDR` | Pod network CIDR | `10.0.0.0/8` |
-| `REDIS_URL` | Redis server address | `redis.fullstack.pw:6379` |
+| `REDIS_URL` | Redis server address | `redis.homelabz.eu:6379` |
 | `REDIS_PASSWORD` | Redis authentication | `""` |
 | `REDIS_DB` | Redis database number | `0` |
 | `SESSION_TIMEOUT_MINUTES` | Session duration | `60` |
 | `CLEANUP_INTERVAL_MINUTES` | Cleanup frequency | `5` |
-| `TERMINAL_MGMT_URL` | cks-terminal-mgmt external URL | `https://terminal.cks.fullstack.pw` |
+| `TERMINAL_MGMT_URL` | cks-terminal-mgmt external URL | `https://terminal.cks.homelabz.eu` |
 
 ## Deployment Architecture
 

@@ -86,12 +86,12 @@ func LoadConfig() (*Config, error) {
 		ValidateGoldenImage:  getEnvAsBool("VALIDATE_GOLDEN_IMAGE", true),
 
 		// Redis defaults
-		RedisURL:      getEnv("REDIS_URL", "redis.fullstack.pw:6379"),
+		RedisURL:      getEnv("REDIS_URL", "redis.homelabz.eu:6379"),
 		RedisPassword: getEnv("REDIS_PASSWORD", ""),
 		RedisDB:       getEnvAsInt("REDIS_DB", 0),
 
 		// Terminal management
-		TerminalMgmtURL: getEnv("TERMINAL_MGMT_URL", "https://terminal.cks.fullstack.pw"),
+		TerminalMgmtURL: getEnv("TERMINAL_MGMT_URL", "https://terminal.cks.homelabz.eu"),
 
 		// Scenario defaults
 		ScenariosPath: getEnv("SCENARIOS_PATH", "scenarios"),

@@ -24,7 +24,7 @@ import (
 	"k8s.io/client-go/rest"
 	"kubevirt.io/client-go/kubecli"
 
-	"github.com/fullstack-pw/cks/backend/internal/config"
+	"github.com/homelabz-eu/cks/backend/internal/config"
 	"github.com/sirupsen/logrus"
 	snapshotv1beta1 "kubevirt.io/api/snapshot/v1beta1"
 )
@@ -468,7 +468,7 @@ func (c *Client) createCloudInitSecret(ctx context.Context, namespace, vmName, v
 	renderedSecret := substituteEnvVars(string(secretContent), data)
 
 	// Apply secret using kubectl
-	return applyYAML(ctx, renderedSecret)
+	return c.applyYAML(ctx, renderedSecret)
 }
 
 func (c *Client) createVM(ctx context.Context, namespace, vmName, vmType string) error {
@@ -514,7 +514,7 @@ func (c *Client) createVM(ctx context.Context, namespace, vmName, vmType string)
 	c.logger.Debug(renderedVM)
 	c.logger.Debug("=== RENDERED VM YAML END ===")
 	// Apply VM using kubectl
-	return applyYAML(ctx, renderedVM)
+	return c.applyYAML(ctx, renderedVM)
 }
 
 // WaitForVMsReady waits for multiple VMs to be ready
@@ -886,30 +886,41 @@ func base64Encode(input string) string {
 }
 
 // applyYAML applies YAML to the cluster
-func applyYAML(ctx context.Context, yaml string) error {
-	// Create a kubectl apply command with stdin for the YAML content
-	cmd := exec.CommandContext(ctx, "kubectl", "apply", "-f", "-")
+func (c *Client) applyYAML(ctx context.Context, yaml string) error {
+	args := []string{"apply", "-f", "-"}
+	if c.kubernetesContext != "" {
+		args = append([]string{"--context", c.kubernetesContext}, args...)
+	}
 
-	// Create a pipe to write the YAML to stdin
+	cmd := exec.CommandContext(ctx, "kubectl", args...)
+
+	tempKubeconfigPath, _ := c.getOrCreateTempKubeconfig()
+	if tempKubeconfigPath != "" {
+		var env []string
+		for _, e := range os.Environ() {
+			if !strings.HasPrefix(e, "KUBECONFIG=") {
+				env = append(env, e)
+			}
+		}
+		env = append(env, "KUBECONFIG="+tempKubeconfigPath)
+		cmd.Env = env
+	}
+
 	stdin, err := cmd.StdinPipe()
 	if err != nil {
 		return fmt.Errorf("failed to create stdin pipe: %w", err)
 	}
 
-	// Create a buffer for the stderr output
 	var stderr strings.Builder
 	cmd.Stderr = &stderr
 
-	// Start the command
 	if err := cmd.Start(); err != nil {
 		return fmt.Errorf("failed to start kubectl apply: %w", err)
 	}
 
-	// Write the YAML to stdin
 	io.WriteString(stdin, yaml)
 	stdin.Close()
 
-	// Wait for the command to complete
 	if err := cmd.Wait(); err != nil {
 		return fmt.Errorf("kubectl apply failed: %w, stderr: %s", err, stderr.String())
 	}

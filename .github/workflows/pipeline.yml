@@ -11,14 +11,14 @@ permissions:
 jobs:
   # go-tests:
   #   name: GO Tests
-  #   uses: fullstack-pw/pipelines/.github/workflows/go-tests.yml@main
+  #   uses: homelabz-eu/pipelines/.github/workflows/go-tests.yml@main
   #   with:
   #     go-dir: .
 
   docker-build-and-push:
     # needs: [go-tests]
     name: Build and Push
-    uses: fullstack-pw/pipelines/.github/workflows/build-and-push.yml@main
+    uses: homelabz-eu/pipelines/.github/workflows/build-and-push.yml@main
     with:
       app-context: "."
       app-name: "cks-backend"
@@ -59,7 +59,7 @@ jobs:
   # dev-deploy:
   #   needs: [docker-build-and-push]
   #   name: DEV deploy
-  #   uses: fullstack-pw/pipelines/.github/workflows/deploy-kustomize.yml@main
+  #   uses: homelabz-eu/pipelines/.github/workflows/deploy-kustomize.yml@main
   #   with:
   #     kustomize-dir: "./kustomize/overlays/dev"
   #     context: "dev"
@@ -68,12 +68,12 @@ jobs:
   # dev-cypress-tests:
   #   needs: dev-deploy
   #   name: DEV cypress
-  #   uses: fullstack-pw/pipelines/.github/workflows/cypress.yml@main
+  #   uses: homelabz-eu/pipelines/.github/workflows/cypress.yml@main
   #   with:
   #     start: npm run cypress:dev
   #     env-vars: |
   #       {
-  #         "ENQUEUER_URL": "https://dev.enqueuer.fullstack.pw",
+  #         "ENQUEUER_URL": "https://dev.enqueuer.homelabz.eu",
   #         "ENVIRONMENT": "dev",
   #         "TEST_RETRIES": "2"
   #       }
@@ -81,7 +81,7 @@ jobs:
   # stg-deploy:
   #   # needs: [dev-cypress-tests]
   #   name: STG deploy
-  #   uses: fullstack-pw/pipelines/.github/workflows/deploy-kustomize.yml@main
+  #   uses: homelabz-eu/pipelines/.github/workflows/deploy-kustomize.yml@main
   #   with:
   #     kustomize-dir: "./${{ matrix.app.app_path }}/kustomize/overlays/stg"
   #     context: "stg"
@@ -90,14 +90,14 @@ jobs:
   # stg-cypress-tests:
   #   needs: stg-deploy
   #   name: STG cypress
-  #   uses: fullstack-pw/pipelines/.github/workflows/cypress.yml@main
+  #   uses: homelabz-eu/pipelines/.github/workflows/cypress.yml@main
   #   with:
   #     start: npm run cypress:stg
   #     env-vars: |
   #       {
-  #         "ENQUEUER_URL": "https://stg.enqueuer.fullstack.pw",
-  #         "WRITER_URL": "https://stg.writer.fullstack.pw",
-  #         "MEMORIZER_URL": "https://stg.memorizer.fullstack.pw",
+  #         "ENQUEUER_URL": "https://stg.enqueuer.homelabz.eu",
+  #         "WRITER_URL": "https://stg.writer.homelabz.eu",
+  #         "MEMORIZER_URL": "https://stg.memorizer.homelabz.eu",
   #         "ENVIRONMENT": "stg",
   #         "TEST_RETRIES": "2"
   #       }
@@ -106,7 +106,7 @@ jobs:
   #   # needs: [stg-cypress-tests]
   #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
   #   name: PROD deploy
-  #   uses: fullstack-pw/pipelines/.github/workflows/deploy-kustomize.yml@main
+  #   uses: homelabz-eu/pipelines/.github/workflows/deploy-kustomize.yml@main
   #   with:
   #     kustomize-dir: "./${{ matrix.app.app_path }}/kustomize/overlays/prod"
   #     context: "prod"

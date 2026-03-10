@@ -8,9 +8,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/fullstack-pw/cks/backend/internal/models"
-	"github.com/fullstack-pw/cks/backend/internal/services"
-	"github.com/fullstack-pw/cks/backend/internal/validation"
+	"github.com/homelabz-eu/cks/backend/internal/models"
+	"github.com/homelabz-eu/cks/backend/internal/services"
+	"github.com/homelabz-eu/cks/backend/internal/validation"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )

@@ -22,8 +22,8 @@ data:
   GOLDEN_IMAGE_NAME: new-golden-image-1-33-0
   GOLDEN_IMAGE_NAMESPACE: vm-templates
   VALIDATE_GOLDEN_IMAGE: true
-  REDIS_URL: redis.fullstack.pw:6379
+  REDIS_URL: redis.homelabz.eu:6379
   REDIS_DB: "0"
-  TERMINAL_MGMT_URL: https://terminal.cks.fullstack.pw
+  TERMINAL_MGMT_URL: https://terminal.cks.homelabz.eu
   TEMPLATE_PATH: /app/templates
   SCENARIOS_PATH: /app/scenarios

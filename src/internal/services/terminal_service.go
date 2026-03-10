@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/fullstack-pw/cks/backend/internal/config"
-	"github.com/fullstack-pw/cks/backend/internal/kubevirt"
+	"github.com/homelabz-eu/cks/backend/internal/config"
+	"github.com/homelabz-eu/cks/backend/internal/kubevirt"
 )
 
 type TerminalServiceImpl struct {

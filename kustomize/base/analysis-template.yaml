@@ -31,7 +31,7 @@ spec:
                         # Clone the demo-apps repository
                         apt-get update -o Acquire::AllowInsecureRepositories=true || true
                         apt-get install -y git --allow-unauthenticated
-                        git clone https://github.com/fullstack-pw/demo-apps.git /demo-apps
+                        git clone https://github.com/homelabz-eu/demo-apps.git /demo-apps
                         cd /demo-apps
 
                         # Install dependencies

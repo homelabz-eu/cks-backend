@@ -6,7 +6,7 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   hosts:
-    - "dev.api.cks.fullstack.pw"   # Will be overridden in overlays
+    - "dev.api.cks.homelabz.eu"   # Will be overridden in overlays
   gateways:
     - istio-system/default-gateway
   http:

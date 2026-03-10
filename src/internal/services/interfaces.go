@@ -6,8 +6,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/fullstack-pw/cks/backend/internal/models"
-	"github.com/fullstack-pw/cks/backend/internal/validation"
+	"github.com/homelabz-eu/cks/backend/internal/models"
+	"github.com/homelabz-eu/cks/backend/internal/validation"
 )
 
 // SessionService defines the interface for session-related operations
