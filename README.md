@@ -505,7 +505,7 @@ Key environment variables:
 | `GOLDEN_IMAGE_NAME` | Base image PVC name | `new-golden-image-1-33-0` |
 | `GOLDEN_IMAGE_NAMESPACE` | Image PVC namespace | `vm-templates` |
 | `POD_CIDR` | Pod network CIDR | `10.0.0.0/8` |
-| `REDIS_URL` | Redis server address | `redis.homelabz.eu:6379` |
+| `REDIS_URL` | Redis server address | `redis.toolz.homelabz.eu:6379` |
 | `REDIS_PASSWORD` | Redis authentication | `""` |
 | `REDIS_DB` | Redis database number | `0` |
 | `SESSION_TIMEOUT_MINUTES` | Session duration | `60` |

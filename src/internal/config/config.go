@@ -65,7 +65,7 @@ func LoadConfig() (*Config, error) {
 
 		// Kubernetes defaults - ADD THESE LINES
 		KubernetesContext: getEnv("KUBERNETES_CONTEXT", "toolz"),
-		KubeconfigPath:    getEnv("KUBECONFIG", ""),                 // Use standard KUBECONFIG env var
+		KubeconfigPath:    getEnv("KUBECONFIG", ""), // Use standard KUBECONFIG env var
 
 		// Session defaults
 		SessionTimeoutMinutes:  getEnvAsInt("SESSION_TIMEOUT_MINUTES", 60),
@@ -86,7 +86,7 @@ func LoadConfig() (*Config, error) {
 		ValidateGoldenImage:  getEnvAsBool("VALIDATE_GOLDEN_IMAGE", true),
 
 		// Redis defaults
-		RedisURL:      getEnv("REDIS_URL", "redis.homelabz.eu:6379"),
+		RedisURL:      getEnv("REDIS_URL", "redis.toolz.homelabz.eu:6379"),
 		RedisPassword: getEnv("REDIS_PASSWORD", ""),
 		RedisDB:       getEnvAsInt("REDIS_DB", 0),
 
