@@ -6,7 +6,7 @@ resources:
 
 images:
   - name: registry.toolz.homelabz.eu/library/cks-backend
-    newTag: 7aeebaf26c3d80e7cfddf32acc08d908b096916a
+    newTag: 1886fbf9572594403e26bc922bfabec58c491100
 
 configMapGenerator:
   - name: cks-backend-config
