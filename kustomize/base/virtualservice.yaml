@@ -18,8 +18,8 @@ spec:
             host: cks-backend.default.svc.cluster.local
             port:
               number: 8080
-      timeout: 30s
+      timeout: 3600s
       retries:
         attempts: 3
-        perTryTimeout: 10s
-        retryOn: "5xx,reset,connect-failure,refused-stream"
+        perTryTimeout: 1200s
+        retryOn: "reset,connect-failure,refused-stream"

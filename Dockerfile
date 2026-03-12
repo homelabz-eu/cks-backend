@@ -21,7 +21,10 @@ FROM alpine:3.19
 RUN apk --no-cache add \
     ca-certificates \
     curl \
-    kubectl
+    kubectl \
+    && wget -O /usr/local/bin/virtctl \
+    https://github.com/kubevirt/kubevirt/releases/download/v1.5.1/virtctl-v1.5.1-linux-amd64 \
+    && chmod +x /usr/local/bin/virtctl
 
 RUN addgroup -g 1001 -S appgroup && \
     adduser -u 1001 -S appuser -G appgroup
