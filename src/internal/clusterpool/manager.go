@@ -335,7 +335,7 @@ func (m *Manager) resetClusterAsync(clusterID string) {
 	err = m.kubevirtClient.RestoreVMFromSnapshot(ctx, cluster.Namespace, cluster.ControlPlaneVM, cpSnapshotName)
 	if err != nil {
 		m.logger.WithError(err).WithField("clusterID", clusterID).Error("Failed to restore control plane VM")
-		m.markClusterError(clusterID, err)
+		m.MarkClusterError(clusterID, err)
 		return
 	}
 
@@ -344,7 +344,7 @@ func (m *Manager) resetClusterAsync(clusterID string) {
 	err = m.kubevirtClient.RestoreVMFromSnapshot(ctx, cluster.Namespace, cluster.WorkerNodeVM, wkSnapshotName)
 	if err != nil {
 		m.logger.WithError(err).WithField("clusterID", clusterID).Error("Failed to restore worker VM")
-		m.markClusterError(clusterID, err)
+		m.MarkClusterError(clusterID, err)
 		return
 	}
 
@@ -360,8 +360,8 @@ func (m *Manager) resetClusterAsync(clusterID string) {
 	m.logger.WithField("clusterID", clusterID).Info("Cluster reset completed successfully with cleanup")
 }
 
-// markClusterError marks a cluster as in error state
-func (m *Manager) markClusterError(clusterID string, err error) {
+// MarkClusterError marks a cluster as in error state
+func (m *Manager) MarkClusterError(clusterID string, err error) {
 	m.lock.Lock()
 	defer m.lock.Unlock()
 

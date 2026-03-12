@@ -907,6 +907,14 @@ func (sm *SessionManager) BootstrapClusterPool(ctx context.Context) error {
 	return nil
 }
 
+func (sm *SessionManager) BootstrapSingleCluster(ctx context.Context, clusterID string) error {
+	validClusters := map[string]bool{"cluster1": true, "cluster2": true, "cluster3": true}
+	if !validClusters[clusterID] {
+		return fmt.Errorf("invalid cluster ID: %s", clusterID)
+	}
+	return sm.bootstrapClusterInNamespace(ctx, clusterID)
+}
+
 func (sm *SessionManager) bootstrapClusterInNamespace(ctx context.Context, clusterID string) error {
 	namespace := clusterID
 

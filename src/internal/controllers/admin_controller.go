@@ -37,6 +37,9 @@ func (ac *AdminController) RegisterRoutes(router *gin.Engine) {
 		admin.POST("/bootstrap-pool", ac.BootstrapClusterPool)
 		admin.POST("/create-snapshots", ac.CreatePoolSnapshots)
 		admin.POST("/release-all-clusters", ac.ReleaseAllClusters)
+		admin.POST("/destroy-pool", ac.DestroyPool)
+		admin.POST("/clusters/:id/bootstrap", ac.BootstrapSingleCluster)
+		admin.POST("/clusters/:id/destroy", ac.DestroySingleCluster)
 		admin.GET("/clusters", ac.GetClusterPoolStatus)
 		admin.GET("/sessions", ac.GetAdminSessions)
 	}
@@ -130,6 +133,57 @@ func (ac *AdminController) ReleaseAllClusters(c *gin.Context) {
 	})
 }
 
+// DestroyPool destroys all cluster resources without attempting snapshot restores
+func (ac *AdminController) DestroyPool(c *gin.Context) {
+	ac.logger.Info("Admin request to destroy cluster pool")
+
+	ctx, cancel := context.WithTimeout(c.Request.Context(), 10*time.Minute)
+	defer cancel()
+
+	clusterIDs := []string{"cluster1", "cluster2", "cluster3"}
+	results := make(map[string]interface{})
+
+	for _, clusterID := range clusterIDs {
+		namespace := clusterID
+		cpVM := fmt.Sprintf("cp-%s", clusterID)
+		wkVM := fmt.Sprintf("wk-%s", clusterID)
+		cpSnapshot := fmt.Sprintf("cp-%s-snapshot", clusterID)
+		wkSnapshot := fmt.Sprintf("wk-%s-snapshot", clusterID)
+
+		ac.logger.WithField("clusterID", clusterID).Info("Destroying cluster resources")
+
+		var errors []string
+
+		if err := ac.kubevirtClient.DeleteVMs(ctx, namespace, cpVM, wkVM); err != nil {
+			errors = append(errors, fmt.Sprintf("delete VMs: %v", err))
+		}
+
+		if err := ac.kubevirtClient.CleanupOldRestores(ctx, namespace, cpVM, wkVM); err != nil {
+			errors = append(errors, fmt.Sprintf("cleanup restores: %v", err))
+		}
+
+		if err := ac.kubevirtClient.DeleteVMSnapshot(ctx, namespace, cpSnapshot); err != nil {
+			errors = append(errors, fmt.Sprintf("delete cp snapshot: %v", err))
+		}
+		if err := ac.kubevirtClient.DeleteVMSnapshot(ctx, namespace, wkSnapshot); err != nil {
+			errors = append(errors, fmt.Sprintf("delete wk snapshot: %v", err))
+		}
+
+		ac.sessionManager.GetClusterPool().MarkClusterError(clusterID, fmt.Errorf("destroyed via destroy-pool endpoint"))
+
+		if len(errors) > 0 {
+			results[clusterID] = map[string]interface{}{"success": false, "errors": errors}
+		} else {
+			results[clusterID] = map[string]interface{}{"success": true}
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Pool destroyed - call bootstrap-pool to recreate",
+		"results": results,
+	})
+}
+
 // createClusterSnapshots creates snapshots for both VMs in a specific cluster
 func (ac *AdminController) createClusterSnapshots(ctx context.Context, clusterID string) (map[string]interface{}, error) {
 	namespace := clusterID // namespace matches clusterID
@@ -180,6 +234,86 @@ func (ac *AdminController) createClusterSnapshots(ctx context.Context, clusterID
 		},
 		"namespace": namespace,
 	}, nil
+}
+
+// DestroySingleCluster destroys all resources for a single cluster by ID
+func (ac *AdminController) DestroySingleCluster(c *gin.Context) {
+	clusterID := c.Param("id")
+	ac.logger.WithField("clusterID", clusterID).Info("Admin request to destroy single cluster")
+
+	validClusters := map[string]bool{"cluster1": true, "cluster2": true, "cluster3": true}
+	if !validClusters[clusterID] {
+		c.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("invalid cluster ID: %s", clusterID)})
+		return
+	}
+
+	ctx, cancel := context.WithTimeout(c.Request.Context(), 10*time.Minute)
+	defer cancel()
+
+	namespace := clusterID
+	cpVM := fmt.Sprintf("cp-%s", clusterID)
+	wkVM := fmt.Sprintf("wk-%s", clusterID)
+	cpSnapshot := fmt.Sprintf("cp-%s-snapshot", clusterID)
+	wkSnapshot := fmt.Sprintf("wk-%s-snapshot", clusterID)
+
+	var errors []string
+
+	if err := ac.kubevirtClient.DeleteVMs(ctx, namespace, cpVM, wkVM); err != nil {
+		errors = append(errors, fmt.Sprintf("delete VMs: %v", err))
+	}
+
+	if err := ac.kubevirtClient.CleanupOldRestores(ctx, namespace, cpVM, wkVM); err != nil {
+		errors = append(errors, fmt.Sprintf("cleanup restores: %v", err))
+	}
+
+	if err := ac.kubevirtClient.DeleteVMSnapshot(ctx, namespace, cpSnapshot); err != nil {
+		errors = append(errors, fmt.Sprintf("delete cp snapshot: %v", err))
+	}
+	if err := ac.kubevirtClient.DeleteVMSnapshot(ctx, namespace, wkSnapshot); err != nil {
+		errors = append(errors, fmt.Sprintf("delete wk snapshot: %v", err))
+	}
+
+	ac.sessionManager.GetClusterPool().MarkClusterError(clusterID, fmt.Errorf("destroyed via destroy-cluster endpoint"))
+
+	if len(errors) > 0 {
+		c.JSON(http.StatusOK, gin.H{
+			"message":   fmt.Sprintf("Cluster %s destroyed with some errors", clusterID),
+			"clusterID": clusterID,
+			"errors":    errors,
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message":   fmt.Sprintf("Cluster %s destroyed successfully", clusterID),
+		"clusterID": clusterID,
+	})
+}
+
+// BootstrapSingleCluster bootstraps a single cluster by ID
+func (ac *AdminController) BootstrapSingleCluster(c *gin.Context) {
+	clusterID := c.Param("id")
+	ac.logger.WithField("clusterID", clusterID).Info("Admin request to bootstrap single cluster")
+
+	ctx, cancel := context.WithTimeout(c.Request.Context(), 45*time.Minute)
+	defer cancel()
+
+	err := ac.sessionManager.BootstrapSingleCluster(ctx, clusterID)
+	if err != nil {
+		ac.logger.WithError(err).WithField("clusterID", clusterID).Error("Failed to bootstrap cluster")
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error":   "Failed to bootstrap cluster",
+			"details": err.Error(),
+		})
+		return
+	}
+
+	ac.logger.WithField("clusterID", clusterID).Info("Single cluster bootstrap completed")
+	c.JSON(http.StatusOK, gin.H{
+		"message":   "Cluster bootstrapped successfully",
+		"clusterID": clusterID,
+		"status":    "completed",
+	})
 }
 
 // GetClusterPoolStatus returns detailed cluster pool status for admin dashboard
