@@ -91,7 +91,7 @@ func LoadConfig() (*Config, error) {
 		RedisDB:       getEnvAsInt("REDIS_DB", 0),
 
 		// Terminal management
-		TerminalMgmtURL: getEnv("TERMINAL_MGMT_URL", "https://terminal.cks.homelabz.eu"),
+		TerminalMgmtURL: getEnv("TERMINAL_MGMT_URL", "https://terminal.toolz.homelabz.eu"),
 
 		// Scenario defaults
 		ScenariosPath: getEnv("SCENARIOS_PATH", "scenarios"),

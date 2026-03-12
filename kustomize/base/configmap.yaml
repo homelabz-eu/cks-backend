@@ -24,6 +24,6 @@ data:
   VALIDATE_GOLDEN_IMAGE: true
   REDIS_URL: redis.toolz.homelabz.eu:6379
   REDIS_DB: "0"
-  TERMINAL_MGMT_URL: https://terminal.cks.homelabz.eu
+  TERMINAL_MGMT_URL: https://terminal.toolz.homelabz.eu
   TEMPLATE_PATH: /app/templates
   SCENARIOS_PATH: /app/scenarios

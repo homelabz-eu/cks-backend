@@ -181,7 +181,7 @@ Terminal access is delegated to [cks-terminal-mgmt](https://github.com/homelabz-
 
 ```
 POST /api/v1/sessions/:id/terminals  { target: "control-plane" }
-→ { terminalUrl: "https://terminal.cks.homelabz.eu/terminal?vmIP=10.42.0.56" }
+→ { terminalUrl: "https://terminal.toolz.homelabz.eu/terminal?vmIP=10.42.0.56" }
 ```
 
 The `TERMINAL_MGMT_URL` is configured via environment variable/ConfigMap.
@@ -510,7 +510,7 @@ Key environment variables:
 | `REDIS_DB` | Redis database number | `0` |
 | `SESSION_TIMEOUT_MINUTES` | Session duration | `60` |
 | `CLEANUP_INTERVAL_MINUTES` | Cleanup frequency | `5` |
-| `TERMINAL_MGMT_URL` | cks-terminal-mgmt external URL | `https://terminal.cks.homelabz.eu` |
+| `TERMINAL_MGMT_URL` | cks-terminal-mgmt external URL | `https://terminal.toolz.homelabz.eu` |
 
 ## Deployment Architecture
 

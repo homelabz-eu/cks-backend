@@ -28,7 +28,6 @@ spec:
                         set -e
                         echo "Running Cypress tests for {{args.app-name}} at {{args.app-url}}"
 
-                        # Clone the demo-apps repository
                         apt-get update -o Acquire::AllowInsecureRepositories=true || true
                         apt-get install -y git --allow-unauthenticated
                         git clone https://github.com/homelabz-eu/cypress.git /cypress-tests
