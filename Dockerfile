@@ -22,6 +22,7 @@ RUN apk --no-cache add \
     ca-certificates \
     curl \
     kubectl \
+    openssh-client \
     && wget -O /usr/local/bin/virtctl \
     https://github.com/kubevirt/kubevirt/releases/download/v1.5.1/virtctl-v1.5.1-linux-amd64 \
     && chmod +x /usr/local/bin/virtctl
