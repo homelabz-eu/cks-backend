@@ -39,8 +39,8 @@ spec:
                         DEV_KUSTOMIZATION="kustomize/overlays/dev/kustomization.yaml"
                         PROD_KUSTOMIZATION="kustomize/overlays/prod/kustomization.yaml"
 
-                        DEV_TAG=$(grep -A1 "name: registry.toolz.homelabz.eu/library/{{args.app-name}}" "$DEV_KUSTOMIZATION" | grep "newTag:" | awk '{print $2}')
-                        PROD_TAG=$(grep -A1 "name: registry.toolz.homelabz.eu/library/{{args.app-name}}" "$PROD_KUSTOMIZATION" | grep "newTag:" | awk '{print $2}')
+                        DEV_TAG=$(grep -A1 "name: registry.homelabz.eu/library/{{args.app-name}}" "$DEV_KUSTOMIZATION" | grep "newTag:" | awk '{print $2}')
+                        PROD_TAG=$(grep -A1 "name: registry.homelabz.eu/library/{{args.app-name}}" "$PROD_KUSTOMIZATION" | grep "newTag:" | awk '{print $2}')
 
                         echo "Dev is at version: $DEV_TAG"
                         echo "Prod is at version: $PROD_TAG"

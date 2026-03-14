@@ -109,7 +109,7 @@ CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build \
 **Automated Pipeline** (`.github/workflows/pipeline.yml`)
 
 Job Flow:
-1. **docker-build-and-push**: Multi-stage build, push to `registry.toolz.homelabz.eu/library/cks-backend` with commit SHA + latest tags
+1. **docker-build-and-push**: Multi-stage build, push to `registry.homelabz.eu/library/cks-backend` with commit SHA + latest tags
 2. **dev-deploy**: Kustomize overlay deployment to development cluster
 3. **versioning**: Semantic version calculation from commit messages, GitHub release creation
 

@@ -40,7 +40,7 @@ spec:
             runAsUser: 0
       containers:
         - name: cks-backend
-          image: registry.toolz.homelabz.eu/library/cks-backend:latest
+          image: registry.homelabz.eu/library/cks-backend:latest
           ports:
             - containerPort: 8080
               protocol: TCP
